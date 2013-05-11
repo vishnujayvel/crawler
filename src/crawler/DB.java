@@ -4,16 +4,13 @@
  */
 package crawler;
 
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.Statement;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 /**
  *
- * @author vishnuJ
+ * @author Vadivelu
  */
+import java.sql.*;
+ 
+ 
 public class DB {
  
 	public Connection conn = null;
@@ -22,7 +19,7 @@ public class DB {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			String url = "jdbc:mysql://localhost:3306/Crawler";
-			conn = (Connection) DriverManager.getConnection(url, "root", "");
+			conn = DriverManager.getConnection(url, "root", "nivetha9");
 			System.out.println("conn built");
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -32,12 +29,12 @@ public class DB {
 	}
  
 	public ResultSet runSql(String sql) throws SQLException {
-		Statement sta = (Statement) conn.createStatement();
+		Statement sta = conn.createStatement();
 		return sta.executeQuery(sql);
 	}
  
 	public boolean runSql2(String sql) throws SQLException {
-		Statement sta = (Statement) conn.createStatement();
+		Statement sta = conn.createStatement();
 		return sta.execute(sql);
 	}
  

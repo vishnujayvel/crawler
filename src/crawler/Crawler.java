@@ -52,7 +52,7 @@ public class Crawler {
 			if(doc.text().contains("the")){
 				System.out.println(URL);
 			}
- 
+            //trails
 			//get all links and recursively call the processPage method
 			Elements questions = doc.select("a[href]");
 			for(Element link: questions){

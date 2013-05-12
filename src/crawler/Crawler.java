@@ -43,20 +43,24 @@ class PageProcess implements Runnable{
     
     void processPage() throws SQLException, IOException{
 		//check if the given URL is already in database
-		String sql = "select * from Record where URL = '"+URL+"'";
+		String sql = "select * from record where URL = '"+URL+"'";
 		ResultSet rs = db.runSql(sql);
 		if(rs.next()){
  
 		}else{
 			//store the URL to database to avoid parsing again
-			sql = "INSERT INTO  `Crawler`.`Record` " + "(`URL`,`Content`) VALUES " + "(?,?);";
+			sql = "INSERT INTO  `Crawler`.`record` " + "(`URL`,`Content`) VALUES " + "(?,?);";
 			PreparedStatement stmt = db.conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
                         Document doc = Jsoup.connect("http://www.udel.edu/").timeout(0).get();
                         Element content = doc.select("html").first();
 			stmt.setString(1,URL);
                         stmt.setString(2,content.html());
 			stmt.execute();
- 
+                        if(content.html().length()>0)
+                        GuiDFrame.progresswindow.setText("hello");
+                       // else
+                            
+                        System.out.print("hello");
 			//get useful information
 			
                         //System.out.println(doc.text());
@@ -91,7 +95,7 @@ public class Crawler{
  
 	public static void main(String[] args) throws SQLException, IOException {
 		db.runSql2("TRUNCATE Record;");
-                Thread t = new Thread(new PageProcess("http://www.udel.edu"));
+                Thread t = new Thread(new PageProcess("http://www.udel.edu/"));
 		t.start();
 	}	
 }

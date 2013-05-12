@@ -14,7 +14,7 @@ public class GuiDFrame extends JFrame implements ActionListener
     JTextArea urlbox;
      JButton button1;
      JButton button2;
-     static JLabel progresswindow;
+      static JLabel progresswindow;
      static GuiDFrame f;
      
    public GuiDFrame()

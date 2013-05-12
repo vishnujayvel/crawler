@@ -56,8 +56,10 @@ class PageProcess implements Runnable{
 			stmt.setString(1,URL);
                         stmt.setString(2,content.html());
 			stmt.execute();
-                        if(content.html().length()>0)
-                        GuiDFrame.progresswindow.setText("hello");
+                        if(content.html().length()>0){
+                            String txt = content.html();
+                            GuiDFrame.progresswindow.setText(txt);
+                        }
                        // else
                             
                         System.out.print("hello");

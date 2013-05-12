@@ -33,12 +33,8 @@ class PageProcess implements Runnable{
 >>>>>>> 61584970fac5c248f46073ff937bb5968f75119f
     PageProcess(String s){
         URL = s;
-<<<<<<< HEAD
        
         
-=======
-        System.out.println(URL);
->>>>>>> trial
     }
     
     @Override
@@ -76,12 +72,8 @@ class PageProcess implements Runnable{
                              count++;
 =======
                             txt = content.html();
-<<<<<<< HEAD
                             GuiDFrame.progresswindow.setText(txt);
 >>>>>>> 61584970fac5c248f46073ff937bb5968f75119f
-=======
-                            //GuiDFrame.progresswindow.setText(txt);
->>>>>>> trial
                         }
                        // else
                             
@@ -120,13 +112,10 @@ public class Crawler{
 	public static DB db = new DB();
         static String crawlurl;
         
-        Crawler(){
-            //System.out.println("s = "+s);
-            crawlurl = "http://www.udel.edu/";
-            System.out.println(crawlurl);
+        Crawler(String s){
+            crawlurl = s;
         }
         
-<<<<<<< HEAD
 	public static void main(String[] args) throws SQLException, IOException {
 <<<<<<< HEAD
 	                  // PageProcess.f=new GuiDFrame();
@@ -138,18 +127,9 @@ public class Crawler{
                            PageProcess.f.repaint();
                            PageProcess.f.progresswindow.setText("hey!sffsf");
 =======
-=======
-	public static void main(String[] args) throws SQLException, IOException, Exception {
->>>>>>> trial
 		db.runSql2("TRUNCATE Record;");
-                System.out.println(crawlurl);
-                Thread t1 = Thread.currentThread();
                 Thread t = new Thread(new PageProcess(crawlurl));
-<<<<<<< HEAD
 >>>>>>> 61584970fac5c248f46073ff937bb5968f75119f
-=======
-                Thread.sleep(1000);
->>>>>>> trial
 		t.start();
 	}	
 }

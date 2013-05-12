@@ -74,7 +74,6 @@ public class GuiDFrame extends JFrame implements ActionListener
     @Override
     public void actionPerformed(ActionEvent e) {
         String s = urlbox.getText();
-        System.out.println("s = "+s );
-        //new Crawler(s);
+        new Crawler(s);
     }
 }  

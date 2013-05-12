@@ -25,9 +25,12 @@ import org.jsoup.select.Elements;
 class PageProcess implements Runnable{
     String URL;
     static int count = 1;
+    static GuiDFrame f=new GuiDFrame();
     
     PageProcess(String s){
         URL = s;
+       
+        
     }
     
     @Override
@@ -56,9 +59,15 @@ class PageProcess implements Runnable{
 			stmt.setString(1,URL);
                         stmt.setString(2,content.html());
 			stmt.execute();
-                        if(content.html().length()>0)
-                        GuiDFrame.progresswindow.setText("hello");
+                        if(content.html().length()>0){
+                            Element title = doc.select("title").first();
+                            //String meta = eMETA.attr("name");
+                            String c="Number of pages crawled is "+count+"\n";
+                            f.progresswindow.setText(c+title.text());
+                             count++;
+                        }
                        // else
+                            
                             
                         System.out.print("hello");
 			//get useful information
@@ -94,8 +103,14 @@ public class Crawler{
 	public static DB db = new DB();
  
 	public static void main(String[] args) throws SQLException, IOException {
-		db.runSql2("TRUNCATE Record;");
+	                  // PageProcess.f=new GuiDFrame();
+                           
+                  db.runSql2("TRUNCATE Record;");
                 Thread t = new Thread(new PageProcess("http://www.udel.edu/"));
+                
+                           PageProcess.f.progresswindow.setText("hey!");
+                           PageProcess.f.repaint();
+                           PageProcess.f.progresswindow.setText("hey!sffsf");
 		t.start();
 	}	
 }

@@ -15,7 +15,7 @@ public class GuiDFrame extends JFrame implements ActionListener
      JButton button1;
      JButton button2;
      static JLabel progresswindow;
-     static GuiDFrame f;
+    //static GuiDFrame f;
      
    public GuiDFrame()
    {
@@ -63,7 +63,7 @@ public class GuiDFrame extends JFrame implements ActionListener
    }
     public static void main( String args[] )
    {
-     f=new GuiDFrame();
+    new GuiDFrame();
    }
 
     @Override

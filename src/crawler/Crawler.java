@@ -25,7 +25,7 @@ import org.jsoup.select.Elements;
 class PageProcess implements Runnable{
     String URL;
     static int count = 1;
-    
+    String txt;
     PageProcess(String s){
         URL = s;
     }
@@ -57,7 +57,7 @@ class PageProcess implements Runnable{
                         stmt.setString(2,content.html());
 			stmt.execute();
                         if(content.html().length()>0){
-                            String txt = content.html();
+                            txt = content.html();
                             GuiDFrame.progresswindow.setText(txt);
                         }
                        // else
@@ -94,10 +94,15 @@ class PageProcess implements Runnable{
 }
 public class Crawler{
 	public static DB db = new DB();
- 
+        static String crawlurl;
+        
+        Crawler(String s){
+            crawlurl = s;
+        }
+        
 	public static void main(String[] args) throws SQLException, IOException {
 		db.runSql2("TRUNCATE Record;");
-                Thread t = new Thread(new PageProcess("http://www.udel.edu/"));
+                Thread t = new Thread(new PageProcess(crawlurl));
 		t.start();
 	}	
 }

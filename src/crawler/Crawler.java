@@ -20,12 +20,15 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
  
- 
+ import java.awt.*;
+import java.awt.event.*;
 
 class PageProcess implements Runnable{
     String URL;
     static int count = 1;
     static GuiDFrame f=new GuiDFrame();
+    URLS urlframe;
+    
     PageProcess(String s){
         URL = s;
        
@@ -39,6 +42,47 @@ class PageProcess implements Runnable{
         }catch(SQLException e){
             System.out.println(e);
         }catch(IOException e){
+            System.out.println(e);
+        }
+    }
+    
+    boolean searchSQL(String src, String dst){
+       return src.contains(dst);
+       
+    }
+    
+    int sizeResult(ResultSet rs){
+        int size = 0;
+        try{
+            rs.last();
+            size = rs.getRow();
+            rs.beforeFirst();
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        return size;
+    }
+    
+    void searchDB(String dst){
+        try{
+            Statement smt = db.conn.createStatement();
+            ResultSet rs = smt.executeQuery("SELECT (`Content`) from `Crawler`.`record`");
+            int n = sizeResult(rs);
+            urlframe = new URLS(n);
+            int i = 0, x = 42, y = 37, offsetX = 0, offsetY = 0;
+            while( rs.next()){
+                String src = rs.getString(1);
+                if( searchSQL(src, dst)){
+                    urlframe.buttons[i].setLocation(x+offsetX, y+offsetY);
+                    urlframe.buttons[i].setSize(100, 30);
+                    urlframe.buttons[i].setText(src);
+                    urlframe.getContentPane().add(urlframe.buttons[i]);
+                    offsetX += x;
+                    offsetY += y;
+                    
+                }
+            }
+        }catch(Exception e){
             System.out.println(e);
         }
     }
@@ -111,7 +155,7 @@ public class Crawler{
 	                  // PageProcess.f=new GuiDFrame();
                            
                   db.runSql2("TRUNCATE Record;");
-                Thread t = new Thread(new PageProcess());
+                Thread t = new Thread(new PageProcess(GuiDFrame.crawlurl));
                 
                            PageProcess.f.progresswindow.setText("hey!");
                            PageProcess.f.repaint();

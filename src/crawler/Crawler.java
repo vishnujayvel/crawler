@@ -25,12 +25,7 @@ import org.jsoup.select.Elements;
 class PageProcess implements Runnable{
     String URL;
     static int count = 1;
-<<<<<<< HEAD
     static GuiDFrame f=new GuiDFrame();
-    
-=======
-    String txt;
->>>>>>> 61584970fac5c248f46073ff937bb5968f75119f
     PageProcess(String s){
         URL = s;
        
@@ -64,16 +59,12 @@ class PageProcess implements Runnable{
                         stmt.setString(2,content.html());
 			stmt.execute();
                         if(content.html().length()>0){
-<<<<<<< HEAD
+//<<<<<<< HEAD
                             Element title = doc.select("title").first();
                             //String meta = eMETA.attr("name");
                             String c="Number of pages crawled is "+count+"\n";
                             f.progresswindow.setText(c+title.text());
                              count++;
-=======
-                            txt = content.html();
-                            GuiDFrame.progresswindow.setText(txt);
->>>>>>> 61584970fac5c248f46073ff937bb5968f75119f
                         }
                        // else
                             
@@ -112,24 +103,18 @@ public class Crawler{
 	public static DB db = new DB();
         static String crawlurl;
         
-        Crawler(String s){
-            crawlurl = s;
-        }
+        //Crawler(){
+            //crawlurl = s;
+        //}
         
 	public static void main(String[] args) throws SQLException, IOException {
-<<<<<<< HEAD
 	                  // PageProcess.f=new GuiDFrame();
                            
                   db.runSql2("TRUNCATE Record;");
-                Thread t = new Thread(new PageProcess("http://www.udel.edu/"));
+                Thread t = new Thread(new PageProcess());
                 
                            PageProcess.f.progresswindow.setText("hey!");
                            PageProcess.f.repaint();
                            PageProcess.f.progresswindow.setText("hey!sffsf");
-=======
-		db.runSql2("TRUNCATE Record;");
-                Thread t = new Thread(new PageProcess(crawlurl));
->>>>>>> 61584970fac5c248f46073ff937bb5968f75119f
-		t.start();
 	}	
 }

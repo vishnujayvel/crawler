@@ -12,15 +12,11 @@ import javax.swing.*;
 public class GuiDFrame extends JFrame implements ActionListener
 {
     JTextArea urlbox;
+    static String crawlurl = "http://www.udel.edu/";
      JButton button1;
      JButton button2;
-<<<<<<< HEAD
      static JLabel progresswindow;
     //static GuiDFrame f;
-=======
-      static JLabel progresswindow;
-     static GuiDFrame f;
->>>>>>> 61584970fac5c248f46073ff937bb5968f75119f
      
    public GuiDFrame()
    {
@@ -73,7 +69,7 @@ public class GuiDFrame extends JFrame implements ActionListener
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        String s = urlbox.getText();
-        new Crawler(s);
+        crawlurl = urlbox.getText();
+        new Crawler();
     }
 }  

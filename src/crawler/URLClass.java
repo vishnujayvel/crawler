@@ -9,7 +9,6 @@ package crawler;
  * @author Vadivelu
  */
 import static crawler.Crawler.db;
-//import crawler.SearchFrame.buttons;
 import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,28 +23,22 @@ import org.jsoup.select.Elements;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-//import javax.swing.JFrame;
 
 
 class SearchFrame extends JFrame implements ActionListener {
-    //JFrame frame = new JFrame("URL CRAWLED");
     JButton buttons[];
-    //JLabel buttonlabel[];
     JPanel panelSearchFrame = new JPanel();
-    
-    public SearchFrame(int n){
-    }
 
-    public SearchFrame() {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+
+    public SearchFrame() {}
+    
     @Override
     public void actionPerformed(ActionEvent e){
         String url = e.getActionCommand();
         WebFrame aPage = new WebFrame(url);
     }
-    // TODO overwrite start(), stop() and destroy() methods
 }
+
 
 public class URLClass extends SearchFrame{
     
@@ -64,7 +57,7 @@ public class URLClass extends SearchFrame{
             size = rs.getRow();
             rs.beforeFirst();
         }catch(Exception e){
-            e.printStackTrace();
+            System.out.println("OOPS!! "+ e.getMessage());
         }
         return size;
     }
@@ -75,10 +68,9 @@ public class URLClass extends SearchFrame{
             ResultSet rs = smt.executeQuery("SELECT URL,Content from `Crawler`.`record`");
             int n = sizeResult(rs);
             panelSearchFrame.setLayout(new FlowLayout());
-            
             buttons = new JButton[n];
-            //buttonLabel = new JLabel[n];
             int i = 0, x = 100, y = 600, offsetX = 0, offsetY = 0;
+            
             while( rs.next()){
                 String PageContent = rs.getString(2);
                 if( searchSQL(PageContent, searchTerm)){
@@ -102,9 +94,8 @@ public class URLClass extends SearchFrame{
             setResizable(true);
             setVisible(true);
             setTitle("frame");
-            //pack();
         }catch(Exception e){
-            e.printStackTrace();
+            System.out.println("OOPS!!! "+ e.getMessage());
         }
     }
     

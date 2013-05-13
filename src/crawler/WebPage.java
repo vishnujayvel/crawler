@@ -39,16 +39,14 @@ class WebFrame extends JFrame{
             setTitle("Web Page");
             
         }catch(Exception e){
-            e.printStackTrace();
+            System.out.println("OOPS!! "+ e.getMessage());
         }
     }
 }
 
 
 public class WebPage extends JFrame {
-    
     public static void main(String args[]){
-        WebFrame f = new WebFrame("https://www.google.com");
-        
+        //WebFrame f = new WebFrame("https://www.google.com");        
     }
 }

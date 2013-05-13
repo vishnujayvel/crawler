@@ -26,18 +26,23 @@ import java.awt.event.*;
 class PageProcess implements Runnable{
     String URL;
     static int count = 1;
-    static GuiDFrame f=new GuiDFrame();
-    URLS urlframe;
+    //static GuiDFrame f=new GuiDFrame();
     
     PageProcess(String s){
         URL = s;
        
         
     }
+
+    PageProcess() {
+        System.out.println("hello");
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     @Override
     public void run(){
         try{
+            System.out.println("hello");
         processPage();
         }catch(SQLException e){
             System.out.println(e);
@@ -46,48 +51,9 @@ class PageProcess implements Runnable{
         }
     }
     
-    boolean searchSQL(String src, String dst){
-       return src.contains(dst);
-       
-    }
-    
-    int sizeResult(ResultSet rs){
-        int size = 0;
-        try{
-            rs.last();
-            size = rs.getRow();
-            rs.beforeFirst();
-        }catch(Exception e){
-            System.out.println(e);
-        }
-        return size;
-    }
-    
-    void searchDB(String dst){
-        try{
-            Statement smt = db.conn.createStatement();
-            ResultSet rs = smt.executeQuery("SELECT (`Content`) from `Crawler`.`record`");
-            int n = sizeResult(rs);
-            urlframe = new URLS(n);
-            int i = 0, x = 42, y = 37, offsetX = 0, offsetY = 0;
-            while( rs.next()){
-                String src = rs.getString(1);
-                if( searchSQL(src, dst)){
-                    urlframe.buttons[i].setLocation(x+offsetX, y+offsetY);
-                    urlframe.buttons[i].setSize(100, 30);
-                    urlframe.buttons[i].setText(src);
-                    urlframe.getContentPane().add(urlframe.buttons[i]);
-                    offsetX += x;
-                    offsetY += y;
-                    
-                }
-            }
-        }catch(Exception e){
-            System.out.println(e);
-        }
-    }
-    
+
     void processPage() throws SQLException, IOException{
+        System.out.println("hello");
 		//check if the given URL is already in database
 		String sql = "select * from record where URL = '"+URL+"'";
 		ResultSet rs = db.runSql(sql);
@@ -103,11 +69,10 @@ class PageProcess implements Runnable{
                         stmt.setString(2,content.html());
 			stmt.execute();
                         if(content.html().length()>0){
-//<<<<<<< HEAD
                             Element title = doc.select("title").first();
                             //String meta = eMETA.attr("name");
                             String c="Number of pages crawled is "+count+"\n";
-                            f.progresswindow.setText(c+title.text());
+                            //f.progresswindow.setText(c+title.text());
                              count++;
                         }
                        // else
@@ -147,18 +112,15 @@ public class Crawler{
 	public static DB db = new DB();
         static String crawlurl;
         
-        //Crawler(){
-            //crawlurl = s;
-        //}
-        
 	public static void main(String[] args) throws SQLException, IOException {
 	                  // PageProcess.f=new GuiDFrame();
+                           System.out.println("hello");
+                  //db.runSql2("TRUNCATE Record;");
+                Thread t = new Thread(new PageProcess("\"http://cis.udel.edu\""));
+                t.start();
+                           //PageProcess.f.progresswindow.setText("hey!");
+                           //PageProcess.f.repaint();
+                           ///PageProcess.f.progresswindow.setText("hey!sffsf");
                            
-                  db.runSql2("TRUNCATE Record;");
-                Thread t = new Thread(new PageProcess(GuiDFrame.crawlurl));
-                
-                           PageProcess.f.progresswindow.setText("hey!");
-                           PageProcess.f.repaint();
-                           PageProcess.f.progresswindow.setText("hey!sffsf");
 	}	
 }

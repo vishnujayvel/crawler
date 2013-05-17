@@ -78,19 +78,10 @@ class PageProcess implements Runnable{
                        // else
                             
                             
-                        System.out.print("hello");
-			//get useful information
-			
-                        //System.out.println(doc.text());
-                        //Document document = Jsoup.connect("http://www.qualcomm.com/innovation").get();
-                        //if( count == 1){
-                        //System.out.println(content.html()); 
-                        //count++;
-                        //}
-// ...
-			if(doc.text().contains("the")){
+      
+	
 				System.out.println(URL);
-			}
+			
  
 			//get all links and recursively call the processPage method
 			Elements questions = doc.select("a[href]");
